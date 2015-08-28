@@ -35,15 +35,17 @@ func (r *room) serveHTTP(w http.ResponseWriter, req *http.Request) {
 		log.Fatal("ServeHTTP: ", err)
 		return
 	}
+
 	client := &client{
 		socket: socket,
 		send:   make(chan []byte, messageBufferSize),
 		room:   r,
 	}
+
 	r.join <- client
 	defer func() { r.leave <- client }()
-	go client.write()
-	client.read()
+	go client.read()
+	client.write()
 }
 
 func (r *room) run() {
