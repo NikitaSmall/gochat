@@ -18,8 +18,10 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
     `))
 }
 
+var mainTemplate = &templateHandler{filename: "chat.html"}
+
 func main() {
-	http.HandleFunc("/", helloHandler)
+	http.HandleFunc("/", mainTemplate.ServeHTTP)
 	err := http.ListenAndServe("localhost:3000", nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
