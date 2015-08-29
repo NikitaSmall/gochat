@@ -49,10 +49,12 @@ func (r *room) serveHTTP(w http.ResponseWriter, req *http.Request) {
 }
 
 func (r *room) run() {
+	var msgs = newMessagePull()
+
 	for {
 		select {
 		case client := <-r.join:
-			// foining
+			// joining
 			r.clients[client] = true
 		case client := <-r.leave:
 			// leaving
@@ -64,6 +66,8 @@ func (r *room) run() {
 				select {
 				case client.send <- msg:
 					// send the messages
+					message := message{Message: msg}
+					msgs.addMessage(message)
 				default:
 					delete(r.clients, client)
 					close(client.send)
