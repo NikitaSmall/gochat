@@ -11,8 +11,17 @@ type message struct {
 type messages []message
 
 func (m *messages) addMessage(message message) {
-	log.Println("message %s was stored", message.Message)
+	log.Printf("message %s was stored", string(message.Message))
 	*m = append(*m, message)
+}
+
+func (m *messages) toString() []string {
+	var strings []string
+	for _, message := range *m {
+		strings = append(strings, string(message.Message))
+	}
+
+	return strings
 }
 
 func newMessagePull() *messages {

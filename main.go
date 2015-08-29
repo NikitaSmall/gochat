@@ -10,10 +10,10 @@ func main() {
 	var addr = flag.String("addr", ":3000", "The addr of the application")
 	flag.Parse()
 	r := newRoom()
-	mainTemplate := &templateHandler{filename: "chat.html"}
-
-	http.HandleFunc("/", mainTemplate.ServeHTTP)
 	http.HandleFunc("/room", r.serveHTTP)
+
+	mainTemplate := &templateHandler{filename: "chat.html", messages: r.Messages}
+	http.HandleFunc("/", mainTemplate.ServeHTTP)
 
 	go r.run()
 
