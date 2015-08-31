@@ -20,8 +20,13 @@ func (t *templateHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		t.templ = template.Must(template.ParseFiles(filepath.Join("templates", t.filename)))
 	})
 	// t.templ.Funcs(FuncMap{"messages": func() *messages { return t.messages }})
-	t.templ.Execute(w, map[string]interface{}{
-		"r":        r,
-		"messages": t.messages.toString(),
-	})
+	if t.messages != nil {
+		t.templ.Execute(w, map[string]interface{}{
+			"r":        r,
+			"messages": t.messages.toString(),
+		})
+	} else {
+		t.templ.Execute(w, r)
+	}
+
 }
