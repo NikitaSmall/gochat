@@ -13,7 +13,7 @@ func main() {
 	http.HandleFunc("/room", r.serveHTTP)
 
 	mainTemplate := &templateHandler{filename: "chat.html", messages: r.Messages}
-	http.HandleFunc("/", mainTemplate.ServeHTTP)
+	http.HandleFunc("/chat", MustAuth(mainTemplate).ServeHTTP)
 
 	go r.run()
 
