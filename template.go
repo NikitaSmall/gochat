@@ -28,7 +28,7 @@ func (t *templateHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		data["UserData"] = objx.MustFromBase64(authCookie.Value)
 	}
 	if t.messages != nil {
-		data["messages"] = t.messages.toString()
+		data["messages"] = t.messages
 	}
 	t.templ.Execute(w, data)
 

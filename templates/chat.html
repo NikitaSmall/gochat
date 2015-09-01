@@ -11,7 +11,8 @@
     <ul id="messages">
       {{ range $key, $message := .messages }}
         <li>
-          {{ $message }}
+          <strong>{{ $message.Name }}:</strong>
+          <span>{{ $message.Message }}</span>
         </li>
       {{ end }}
     </ul>
