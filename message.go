@@ -2,10 +2,13 @@ package main
 
 import (
 	"log"
+	"time"
 )
 
 type message struct {
-	Message []byte
+	Message string
+	When    time.Time
+	Name    string
 }
 
 type messages []message
