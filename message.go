@@ -6,9 +6,10 @@ import (
 )
 
 type message struct {
-	Message string
-	When    time.Time
-	Name    string
+	Message   string
+	When      time.Time
+	Name      string
+	AvatarURL string
 }
 
 type messages []message

@@ -11,6 +11,7 @@
     <ul id="messages">
       {{ range $key, $message := .messages }}
         <li>
+          <img style="width:50px; verticalAlign:middle" src="{{ $message.AvatarURL }}">
           <strong>{{ $message.Name }}:</strong>
           <span>{{ $message.Message }}</span>
         </li>
@@ -55,6 +56,10 @@ src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js">
         var msg = eval("("+e.data+")");
         messages.append(
           $("<li>").append(
+            $("<img>").css({
+              width:50,
+              verticalAlign:"middle"
+              }).attr("src", msg.AvatarURL),
             $("<strong>").text(msg.Name + ": "),
             $("<span>").text(msg.Message)
           )
