@@ -35,6 +35,17 @@ func main() {
 	http.HandleFunc("/chat", MustAuth(mainTemplate).ServeHTTP)
 	http.HandleFunc("/login", loginTemplate.ServeHTTP)
 
+	http.HandleFunc("/logout", func(w http.ResponseWriter, r *http.Request) {
+		http.SetCookie(w, &http.Cookie{
+			Name:   "auth",
+			Value:  "",
+			Path:   "/",
+			MaxAge: -1,
+		})
+		w.Header()["Location"] = []string{"/chat"}
+		w.WriteHeader(http.StatusTemporaryRedirect)
+	})
+
 	go r.run()
 
 	log.Println("Server starting on ", *addr)
