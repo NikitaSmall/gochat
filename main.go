@@ -25,7 +25,7 @@ func main() {
 			"http://localhost:3000/auth/callback/google"),
 	)
 
-	r := newRoom()
+	r := newRoom(UseAuthAvatar)
 	http.HandleFunc("/room", r.serveHTTP)
 
 	mainTemplate := &templateHandler{filename: "chat.html", messages: r.Messages}

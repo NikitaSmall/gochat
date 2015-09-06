@@ -21,9 +21,10 @@ func (c *client) read() {
 		if err == nil {
 			msg.When = time.Now()
 			msg.Name = c.userData["name"].(string)
-			if avatarUrl, ok := c.userData["avatar_url"]; ok {
-				msg.AvatarURL = avatarUrl.(string)
-			}
+			msg.AvatarURL, _ = c.room.avatar.GetAvatarURL(c)
+			// if avatarUrl, ok := c.userData["avatar_url"]; ok {
+			// 	msg.AvatarURL = avatarUrl.(string)
+			// }
 			c.room.forward <- msg
 		} else {
 			break

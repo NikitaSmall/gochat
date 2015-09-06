@@ -16,6 +16,7 @@ type room struct {
 	clients  map[*client]bool
 	Messages *messages
 	tracer   trace.Tracer
+	avatar   Avatar
 }
 
 const (
@@ -25,7 +26,7 @@ const (
 
 var upgrader = &websocket.Upgrader{ReadBufferSize: socketBufferSize, WriteBufferSize: socketBufferSize}
 
-func newRoom() *room {
+func newRoom(avatar Avatar) *room {
 	return &room{
 		forward:  make(chan *message),
 		join:     make(chan *client),
@@ -33,6 +34,7 @@ func newRoom() *room {
 		clients:  make(map[*client]bool),
 		Messages: newMessagePull(),
 		tracer:   trace.New(os.Stdout),
+		avatar:   avatar,
 	}
 }
 
